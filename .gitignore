@@ -1,0 +1,30 @@
+# IDEA
+.idea/
+build-idea/
+test-output/
+reports/
+*.iml
+*.ipr
+*.iws
+
+.project
+.classpath
+
+# Gradle
+.gradle
+/build/
+.settings
+.gradle/
+build/
+out/
+
+# # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+target/
+
+#Embedded Tomcat
+log/
