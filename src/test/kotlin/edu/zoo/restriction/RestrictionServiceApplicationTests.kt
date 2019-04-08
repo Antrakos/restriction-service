@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.core.KafkaTemplate
 import java.time.Duration
+import java.time.ZonedDateTime
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -56,7 +57,7 @@ class RestrictionServiceApplicationTests {
         assertThat(warnings).containsExactlyInAnyOrderElementsOf(expected)
     }
 
-    private fun createSensorData(value: Double) = SensorData(id = SENSOR_ID, value = value)
+    private fun createSensorData(value: Double) = SensorData(id = SENSOR_ID, value = value, timestamp = ZonedDateTime.now().toInstant())
     private fun createRestriction(lowerBound: Double? = null, upperBound: Double? = null) = Restriction(
             id = null,
             duration = Duration.ZERO,

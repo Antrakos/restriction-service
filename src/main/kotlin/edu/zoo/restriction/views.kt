@@ -1,9 +1,11 @@
 package edu.zoo.restriction
 
 import java.time.Duration
+import java.time.Instant
 
 data class SensorData(
         val id: Long,
+        val timestamp: Instant,
         val value: Double
 )
 
