@@ -19,10 +19,10 @@ import org.springframework.stereotype.Component
 
 interface SensorDataBinding {
     @Input(SENSOR_DATA_IN)
-    fun sensorData(): KStream<Long, SensorData>
+    fun sensorData(): KStream<String, SensorData>
 
     @Output(WARNING_OUT)
-    fun warning(): KStream<Long, Warning>
+    fun warning(): KStream<String, Warning>
 
     companion object {
         const val SENSOR_DATA_IN = "sensorData"
@@ -37,7 +37,7 @@ class SensorDataProcessor(
 ) {
     @StreamListener(SENSOR_DATA_IN)
     @SendTo(WARNING_OUT)
-    fun process(source: KStream<Long, SensorData>): KStream<Long, Warning> = source
+    fun process(source: KStream<String, SensorData>): KStream<String, Warning> = source
             .peek { _, data -> log.debug("Received sensor data: {}", data) }
             .flatMapValues { data -> restrictionService.finaAllForSensor(data.id).map { data to it } }
             .filterNot { _, (sensorData, restriction) -> restriction.isWithinLimits(sensorData.value) }
@@ -49,7 +49,7 @@ class SensorDataProcessor(
             }
             .peek { _, warning -> log.debug("Sending warning: {}", warning) }
             .map { _, warning ->
-                KeyValue(warning.restriction.id, warning)
+                KeyValue(warning.restriction.id.toString(), warning)
             }
 
     companion object {

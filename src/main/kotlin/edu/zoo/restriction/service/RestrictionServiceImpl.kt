@@ -11,7 +11,7 @@ class RestrictionServiceImpl(
 
     override fun findOne(id: Long): Restriction? = repository.findById(id).orElse(null)
 
-    override fun finaAllForSensor(sensorId: Long): List<Restriction> = repository.findAllBySensorId(sensorId)
+    override fun finaAllForSensor(sensorId: String): List<Restriction> = repository.findAllBySensorId(sensorId)
 
     override fun save(restriction: Restriction): Restriction = repository.save(restriction)
 

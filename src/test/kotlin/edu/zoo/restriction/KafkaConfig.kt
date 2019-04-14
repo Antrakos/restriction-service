@@ -32,9 +32,9 @@ class KafkaConfig(
 
     @Bean(name = ["sensorDataSender"])
     fun sensorDataSender(
-            producerFactory: ProducerFactory<Long, *>,
-            @Value("\${sensor.data.topic}") sensorDataTopic: String): KafkaTemplate<Long, SensorData> {
-        return createSender(producerFactory as ProducerFactory<Long, SensorData>, sensorDataTopic)
+            producerFactory: ProducerFactory<*, *>,
+            @Value("\${sensor.data.topic}") sensorDataTopic: String): KafkaTemplate<String, SensorData> {
+        return createSender(producerFactory as ProducerFactory<String, SensorData>, sensorDataTopic)
     }
 
     @Bean
@@ -45,12 +45,12 @@ class KafkaConfig(
     }
 
     @Bean
-    fun producerFactory(jsonSerializer: JsonSerializer<Any>): ProducerFactory<Long, Any> {
-        return DefaultKafkaProducerFactory<Long, Any>(mapOf(
+    fun producerFactory(jsonSerializer: JsonSerializer<Any>): ProducerFactory<Any, Any> {
+        return DefaultKafkaProducerFactory<Any, Any>(mapOf(
                 "bootstrap.servers" to environment.getProperty("spring.kafka.producer.bootstrap-servers")
         )).apply {
             setValueSerializer(jsonSerializer)
-            setKeySerializer(LongSerializer())
+            setKeySerializer(jsonSerializer)
         }
 
     }

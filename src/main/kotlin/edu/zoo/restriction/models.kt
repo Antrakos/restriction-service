@@ -12,7 +12,7 @@ data class Restriction(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long?,
-        val sensorId: Long,
+        val sensorId: String,
         @Column(name = "count_limit")
         val limit: Long,
         val duration: Duration,

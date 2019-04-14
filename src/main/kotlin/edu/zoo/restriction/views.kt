@@ -4,7 +4,7 @@ import java.time.Duration
 import java.time.Instant
 
 data class SensorData(
-        val id: Long,
+        val id: String,
         val timestamp: Instant,
         val value: Double
 )

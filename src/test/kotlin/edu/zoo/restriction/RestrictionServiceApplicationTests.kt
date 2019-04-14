@@ -8,6 +8,7 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.core.KafkaTemplate
 import java.time.Duration
 import java.time.ZonedDateTime
+import java.util.UUID
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -15,7 +16,7 @@ import kotlin.random.Random
 @RestrictionServiceIntegrationTest
 class RestrictionServiceApplicationTests {
     @Autowired
-    private lateinit var sensorDataSender: KafkaTemplate<Long, SensorData>
+    private lateinit var sensorDataSender: KafkaTemplate<String, SensorData>
     @Autowired
     private lateinit var restrictionService: RestrictionService
     private lateinit var countDownLatch: CountDownLatch
@@ -68,7 +69,7 @@ class RestrictionServiceApplicationTests {
     )
 
     companion object {
-        const val SENSOR_ID = 1L
+        val SENSOR_ID = UUID.randomUUID().toString()
         val log by LoggerDelegate()
     }
 }
