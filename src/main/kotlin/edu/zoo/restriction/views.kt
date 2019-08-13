@@ -12,13 +12,17 @@ data class SensorData(
 data class RestrictionView(
         val id: Long,
         val limit: Long,
-        val duration: Duration
+        val duration: Duration,
+        val upperBound: Double?,
+        val lowerBound: Double?
 ) {
     companion object {
         fun from(restriction: Restriction): RestrictionView = RestrictionView(
                 id = restriction.id!!,
                 limit = restriction.limit,
-                duration = restriction.duration
+                duration = restriction.duration,
+                upperBound = restriction.upperBound,
+                lowerBound = restriction.lowerBound
         )
     }
 }
