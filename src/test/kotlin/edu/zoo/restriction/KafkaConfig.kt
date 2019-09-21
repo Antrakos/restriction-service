@@ -1,7 +1,6 @@
 package edu.zoo.restriction
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.apache.kafka.common.serialization.LongSerializer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -33,7 +32,8 @@ class KafkaConfig(
     @Bean(name = ["sensorDataSender"])
     fun sensorDataSender(
             producerFactory: ProducerFactory<*, *>,
-            @Value("\${sensor.data.topic}") sensorDataTopic: String): KafkaTemplate<String, SensorData> {
+            @Value("\${sensor.data.topic}") sensorDataTopic: String
+    ): KafkaTemplate<String, SensorData> {
         return createSender(producerFactory as ProducerFactory<String, SensorData>, sensorDataTopic)
     }
 
